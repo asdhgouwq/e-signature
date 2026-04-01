@@ -7,7 +7,8 @@
  *  - REST API를 통해 서명 목록 조회, 저장, 삭제 기능 제공
  *  - 관리자 비밀번호 인증으로 목록/삭제 API 보호
  */
-
+const cors = require("cors");
+app.use(cors());
 const express = require("express"); // 웹 서버 프레임워크
 const cors = require("cors"); // Cross-Origin Resource Sharing 허용
 const fs = require("fs"); // 파일 시스템 접근 (Node.js 내장)
@@ -190,7 +191,7 @@ app.delete("/api/signatures/:id", requireAuth, (req, res) => {
 
 // ─── 서버 시작 ──────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`✅ 서버가 실행 중입니다: http://localhost:${PORT}`);
-  console.log(`📝 서명 입력 페이지: http://localhost:${PORT}/index.html`);
-  console.log(`📋 서명 목록 페이지: http://localhost:${PORT}/list.html`);
+  console.log(`✅ 서버가 실행 중입니다 `);
+  console.log(`📝 서명 입력 페이지 `);
+  console.log(`📋 서명 목록 페이지`);
 });
