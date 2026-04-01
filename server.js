@@ -7,8 +7,6 @@
  *  - REST API를 통해 서명 목록 조회, 저장, 삭제 기능 제공
  *  - 관리자 비밀번호 인증으로 목록/삭제 API 보호
  */
-const cors = require("cors");
-app.use(cors());
 const express = require("express"); // 웹 서버 프레임워크
 const cors = require("cors"); // Cross-Origin Resource Sharing 허용
 const fs = require("fs"); // 파일 시스템 접근 (Node.js 내장)
@@ -17,14 +15,14 @@ const crypto = require("crypto"); // 토큰 생성 (Node.js 내장)
 const { v4: uuidv4 } = require("uuid"); // 고유 ID 생성
 
 // ─── 관리자 비밀번호 설정 ────────────────────────────────────────────────────
-// ⚠️  비밀번호를 변경하려면 아래 값을 수정하세요
-const ADMIN_PASSWORD = "admin";
+// ⚠️  환경 변수(ADMIN_PASSWORD)를 설정하거나 아래 값을 수정하세요
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 
 // 로그인된 세션 토큰을 메모리에 저장 (서버 재시작 시 초기화됨)
 const validTokens = new Set();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // ─── 데이터 파일 경로 설정 ───────────────────────────────────────────────────
 // signatures.json 파일이 없으면 자동으로 생성됩니다.
@@ -191,7 +189,6 @@ app.delete("/api/signatures/:id", requireAuth, (req, res) => {
 
 // ─── 서버 시작 ──────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`✅ 서버가 실행 중입니다 `);
-  console.log(`📝 서명 입력 페이지 `);
-  console.log(`📋 서명 목록 페이지`);
+  console.log(`✅ 서버가 실행 중입니다 (포트: ${PORT}) `);
+  console.log(`📝 서명 웹앱이 준비되었습니다.`);
 });

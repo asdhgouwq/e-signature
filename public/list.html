@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전자 서명 - 서명 목록</title>
+  <meta name="description" content="제출된 모든 전자 서명을 확인하는 목록 페이지입니다." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- ── 헤더 ── -->
+    <header>
+      <a href="index.html" class="logo">
+        <span class="logo-icon">✍️</span>
+        <span>전자 서명</span>
+      </a>
+      <p>안전하고 간편한 디지털 서명 서비스</p>
+      <button id="btn-logout" class="btn-logout" style="display:none;" title="로그아웃">🔓 로그아웃</button>
+    </header>
+
+    <!-- ── 탭 내비게이션 ── -->
+    <nav class="nav-tabs" style="max-width:680px; width:100%; margin-bottom:20px;">
+      <a href="index.html" class="nav-tab">✏️ 서명하기</a>
+      <a href="list.html" class="nav-tab active">📋 서명 목록</a>
+    </nav>
+
+    <!-- ── 서명 목록 카드 ── -->
+    <main class="card">
+      <p class="section-title">
+        제출된 서명
+        <!-- 서명 개수 배지 (JS에서 채워짐) -->
+        <span class="count-badge" id="count-badge">0</span>
+      </p>
+
+      <!-- 다운로드 툴바 (서명이 있을 때만 표시) -->
+      <div class="download-toolbar" id="download-toolbar" style="display:none;">
+        <label class="select-all-label" id="select-all-label">
+          <input type="checkbox" id="select-all" />
+          <span>전체 선택</span>
+        </label>
+        <span class="selected-count" id="selected-count">0개 선택됨</span>
+        <div class="toolbar-btns">
+          <button type="button" class="btn btn-download-sel" id="btn-download-sel" disabled>
+            ⬇️ 선택 다운로드
+          </button>
+          <button type="button" class="btn btn-download-all" id="btn-download-all">
+            📦 전체 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- 로딩 중 표시 -->
+      <div class="spinner" id="spinner"></div>
+
+      <!-- 서명 카드들이 이 안에 동적으로 삽입됩니다 -->
+      <div class="signatures-grid" id="signatures-grid" style="display:none;"></div>
+
+
+      <!-- 서명이 없을 때 표시 -->
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="empty-icon">📭</div>
+        <p>아직 제출된 서명이 없습니다.</p>
+        <a href="index.html" class="btn btn-primary" style="display:inline-flex;">
+          ✏️ 첫 서명 남기기
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <!-- 로그인 모달 오버레이 -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-modal" id="login-modal">
+      <!-- 닫기 버튼 -->
+      <button type="button" class="login-close" id="btn-login-close" title="닫기">✕</button>
+      <div class="login-icon">🔐</div>
+      <h2 class="login-title">관리자 인증</h2>
+      <p class="login-desc">서명 목록은 관리자만 열람할 수 있습니다.</p>
+      <div class="login-form">
+        <input
+          type="password"
+          id="admin-password"
+          class="login-input"
+          placeholder="비밀번호를 입력하세요"
+          maxlength="100"
+          autocomplete="current-password"
+        />
+        <div id="login-error" class="login-error" style="display:none;">❌ 비밀번호가 올바르지 않습니다.</div>
+        <button type="button" id="btn-login" class="btn btn-primary" style="width:100%; justify-content:center;">
+          🔑 로그인
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 목록 로직 -->
+  <script src="js/list.js"></script>
+</body>
+</html>
