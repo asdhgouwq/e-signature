@@ -1,7 +1,12 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import crypto from "crypto";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin";
 const validTokens = new Set<string>();
